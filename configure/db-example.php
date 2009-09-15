@@ -4,7 +4,7 @@ $master_pool = array(
 		"address" => "127.0.0.1",
 		"username" => "root",
 		"password" => "password",
-		"name" => "vo2",
+		"name" => "20q",
 		"type" => "mysql"
 	)
 );

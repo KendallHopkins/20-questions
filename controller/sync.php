@@ -1,6 +1,6 @@
 <?php
 
 $sqloo = Common::getSqloo();
-$sqloo->checkSchema();
+print $sqloo->checkSchema();
 
 ?>
