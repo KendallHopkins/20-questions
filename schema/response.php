@@ -1,8 +1,8 @@
 <?php
 
-$table = $sqloo->newTable( "responce" );
+$table = $sqloo->newTable( "response" );
 $table->column = array(
-	"responce" => array(
+	"response" => array(
 		Sqloo::COLUMN_DATA_TYPE => array( "type" => Sqloo::DATATYPE_BOOLEAN )
 	),
 	"added" => array(
@@ -27,7 +27,7 @@ $table->parent = array(
 );
 $table->index = array(
 	array(
-		Sqloo::INDEX_COLUMN_ARRAY => array( "responce" ),
+		Sqloo::INDEX_COLUMN_ARRAY => array( "response" ),
 	),
 	array(
 		Sqloo::INDEX_COLUMN_ARRAY => array( "game", "question" ),
