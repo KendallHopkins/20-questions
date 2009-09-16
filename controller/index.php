@@ -18,5 +18,4 @@ $smarty->assign( "title" , "20 Questions" );
 $smarty->assign( "group_array", $group_array );
 $smarty->display( "index.tpl" );
 
-
 ?>

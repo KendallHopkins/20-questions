@@ -1,7 +1,5 @@
 <?php
 
-$json_array = array();
-
 if( ! array_key_exists( "group_id", $_REQUEST ) ) {
 	Common::sendJSON(
 		array(
@@ -11,20 +9,18 @@ if( ! array_key_exists( "group_id", $_REQUEST ) ) {
 	);
 }
 
-$sqloo = Common::getSqloo();
 $attribute_array = array(
 	"group_id" => (int)$_REQUEST["group_id"]
 );
 
 try {
+	$sqloo = Common::getSqloo();
 	$row_id = $sqloo->insert( "game", $attribute_array );
-	$json_array["success"] = TRUE;
-	$json_array["game_id"] = $row_id;
 } catch( Exception $e ) {
 	Common::sendJSON(
 		array(
 			"success" => FALSE,
-			"error" => "Database Error: ".$e->getMessage()
+			"error" => "Database error: ".$e->getMessage()
 		)
 	);
 }

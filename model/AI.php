@@ -111,6 +111,18 @@ class AI
 		return $responce_single_table_ref;
 	}
 	
+	static function getDoneResponseCount( $responce_single_table_ref )
+	{
+		$sqloo = Common::getSqloo();		
+		$query = $sqloo->newQuery();
+		$table_ref = $query->table( $responce_single_table_ref );
+		$query->column = array( "count" => "COUNT( * )" );
+		$query->where[] = "$table_ref->done";
+		$query->run();
+		$row = $query->fetchRow();
+		return (int)$row["count"];
+	}
+	
 	static function getItemProbabilityTable( $responce_average_table_ref, $responce_single_table_ref )
 	{
 		$sqloo = Common::getSqloo();
@@ -124,7 +136,7 @@ class AI
 		
 		$query->column = array(
 			"item_id" => $item_ref->id,
-			"probability" => sql_product( "1 - ABS( $item_user_responce->response - $item_responce_average_ref->average )" ),
+			"probability" => Common::sqlProduct( "1 - ABS( $item_user_responce->response - $item_responce_average_ref->average )" ),
 		);
 	
 		$item_probability_table_ref = new Temp_Table( 'item_id int, probability float' );
@@ -133,7 +145,21 @@ class AI
 		return $item_probability_table_ref;
 	}
 	
-	static function getBestQuestionId( $responce_single_table_ref, $responce_average_table_ref, $item_probability_table_ref )
+	static function getBestAnswerItem( $item_probability_table_ref )
+	{
+		$sqloo = Common::getSqloo();
+		$query = $sqloo->newQuery();
+		$item_ref = $query->table( "item" );
+		$item_probability_ref = $item_ref->joinChild( $item_probability_table_ref, "item_id" );
+		$query->order[ $item_probability_ref->probability ] = Sqloo::ORDER_DESCENDING;
+		$query->column = array(
+			"id" => $item_ref->id,
+			"name" => $item_ref->name
+		);
+		return array( "id" => (int)$row["id"], "name" => $row["name"] );
+	}
+	
+	static function getBestQuestionInfo( $responce_single_table_ref, $responce_average_table_ref, $item_probability_table_ref )
 	{
 		$sqloo = Common::getSqloo();
 		$query = $sqloo->newQuery();
@@ -149,17 +175,14 @@ class AI
 		$sort_by_string = "STD( $item_probability_ref->probability * ( $question_responce_average_ref->average - 0.5 ) )";
 	
 		$query->column = array(
-			"id" => $question_ref->id
+			"id" => $question_ref->id,
+			"question" => $question_ref->question
 		);
 		$query->limit = 1;
 		$query->order[$sort_by_string] = Sqloo::ORDER_DESCENDING;
 		$query->run();
 		$row = $query->fetchRow();
-		if( is_null( $row ) ) {
-			return NULL;
-		} else {
-			return $row["id"];
-		}
+		return array( "id" => (int)$row["id"], "string" => $row["question"] );
 	}
 	
 }
