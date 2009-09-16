@@ -23,7 +23,7 @@ $table->parent = array(
 );
 $table->index = array(
 	array(
-		Sqloo::INDEX_COLUMN_ARRAY => array( "name" ),
+		Sqloo::INDEX_COLUMN_ARRAY => array( "name", "group_id" ),
 		Sqloo::INDEX_UNIQUE => TRUE
 	),
 	array(
