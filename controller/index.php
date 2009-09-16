@@ -1,7 +1,10 @@
 <?php
-
+echo 'kendall';
 $smarty = Common::getSmarty();
-$smarty->assign( "title" , "20 Questions" );
-$smarty->display( "index.tpl" );
+echo 'boo';
+//$smarty->assign( "title" , "20 Questions" );
+echo 'balls';
+$smarty->display( "index2345.tpl" );
+echo 'sick';
 
 ?>

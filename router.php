@@ -23,7 +23,8 @@
 
 /* ROUTING */	
 	$current_url = "/".trim( parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ), "/" );
-	$rewrite_file = $_SERVER['DOCUMENT_ROOT']."/controller".$current_url.".php";	
+	$rewrite_file = $_SERVER['DOCUMENT_ROOT']."/controller".$current_url.".php";
+	echo $rewrite_file;
 	if( file_exists( $rewrite_file ) )
 		require( $rewrite_file );
 	else
