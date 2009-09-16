@@ -2,7 +2,7 @@
 
 $table = $sqloo->newTable( "question" );
 $table->column = array(
-	"question" => array(
+	"name" => array(
 		Sqloo::COLUMN_DATA_TYPE => array( "type" => Sqloo::DATATYPE_STRING, "size" => 1024 )
 	),
 	"added" => array(

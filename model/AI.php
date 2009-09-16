@@ -176,13 +176,13 @@ class AI
 	
 		$query->column = array(
 			"id" => $question_ref->id,
-			"question" => $question_ref->question
+			"name" => $question_ref->name
 		);
 		$query->limit = 1;
 		$query->order[$sort_by_string] = Sqloo::ORDER_DESCENDING;
 		$query->run();
 		$row = $query->fetchRow();
-		return array( "id" => (int)$row["id"], "string" => $row["question"] );
+		return array( "id" => (int)$row["id"], "name" => $row["name"] );
 	}
 	
 }
