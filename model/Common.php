@@ -21,6 +21,16 @@ class Common
 		return array_key_exists( $key, $array ) ? $array[$key] : $fallback_value;
 	}
 	
+	static function sqlProduct( $product_column )
+	{
+		return "IF( MIN( $product_column ) = 0, 0, EXP( SUM( LOG( $product_column ) ) ) )";
+	}
+	
+	static function sendJSON( $json_data )
+	{
+		print json_encode( $json_data ); exit();
+	}
+	
 	/* wrapper for Sqloo */
 
 	static public function master_pool()
