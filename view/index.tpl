@@ -14,7 +14,7 @@
 		<div class="header">20 Questions</div>
 		<div class="subheader">Please choose a category</div>
 		<div id="lobby">
-			<img id="loading" src="ajax-loader.gif" />
+			<img id="loading" src="/static/img/ajax-loader.gif" />
 			<div id="left_box" class="category">Fruits</div>
 			<div id="right_box" class="category">Veggies</div>
 			<div class="clear"></div>
