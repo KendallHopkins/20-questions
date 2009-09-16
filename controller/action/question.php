@@ -17,7 +17,7 @@ if( array_key_exists( "question_id", $_REQUEST ) &&
 		$sqloo = Common::getSqloo();
 		$row_id = $sqloo->insert( "response", $attribute_array );
 	} catch( Exception $e ) {
-		Common::sendJSON( array( "success" => FALSE, "error" => "Database error while inserting Question: ".$e->getMessage() ) );
+		Common::sendJSON( array( "success" => FALSE, "error" => "Database error while inserting question: ".$e->getMessage() ) );
 	}
 }
 
@@ -26,12 +26,12 @@ $responce_single_table_ref = AI::getResponceSingleTable( (int)$_REQUEST["game_id
 $done_count = AI::getDoneResponseCount( $responce_single_table_ref );
 $item_probability_table_ref = AI::getItemProbabilityTable( $responce_average_table_ref, $responce_single_table_ref );
 if( $done_count < 20 ) {
-	$question_info = AI::getBestQuestionInfo( $responce_single_table_ref, $responce_average_table_ref, $item_probability_table_ref );
+	$question_array = AI::getBestQuestionArray( $responce_single_table_ref, $responce_average_table_ref, $item_probability_table_ref, 1 );
 	Common::sendJSON(
 		array(
 			"success" => TRUE,
 			"type" => "normal",
-			"question" => $question_info,
+			"question" => Common::safeArrayAccess( 0, $question_array ),
 			"count" => $done_count
 		)
 	);

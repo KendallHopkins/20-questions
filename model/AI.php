@@ -159,7 +159,7 @@ class AI
 		return array( "id" => (int)$row["id"], "name" => $row["name"] );
 	}
 	
-	static function getBestQuestionInfo( $responce_single_table_ref, $responce_average_table_ref, $item_probability_table_ref )
+	static function getBestQuestionArray( $responce_single_table_ref, $responce_average_table_ref, $item_probability_table_ref, $count )
 	{
 		$sqloo = Common::getSqloo();
 		$query = $sqloo->newQuery();
@@ -178,11 +178,14 @@ class AI
 			"id" => $question_ref->id,
 			"name" => $question_ref->name
 		);
-		$query->limit = 1;
+		$query->limit = $count;
 		$query->order[$sort_by_string] = Sqloo::ORDER_DESCENDING;
 		$query->run();
-		$row = $query->fetchRow();
-		return array( "id" => (int)$row["id"], "name" => $row["name"] );
+		$best_question_array = array();
+		foreach( $query as $row ) {
+			$best_question_array[] = array( "id" => (int)$row["id"], "name" => $row["name"] )
+		}
+		return $best_question_array;
 	}
 	
 }
