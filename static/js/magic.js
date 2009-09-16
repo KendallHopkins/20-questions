@@ -5,7 +5,7 @@ function _set_up_interface( cat ) {
 	}).ajaxStop(function() {
 		$(this).hide();
 	});
-	__handle_json(null);
+	
 //			$.ajax(function() {
 //				type:	"POST",
 //				url:	"somefile.php",
@@ -15,15 +15,17 @@ function _set_up_interface( cat ) {
 //					__handle_json(json);
 //				}
 //			});
+	__handle_json(null, cat);
 }
 
-function __handle_json(json) {
-	$('div.subheader').removeClass('subheader').addClass('question').after('<div class="subheader"><strong>Category: </strong>'+ cat);
+function __handle_json(json, cat) {
+	$('div.subheader').removeClass('subheader').addClass('chosencat').html('<strong>Category: </strong>'+ cat);
 	$('#left_box').html('Yes').addClass('green');
 	$('#right_box').html('No').addClass('red');
 }
 
 $(document).ready(function() {
+	
 	$('#left_box').click(function() {
 		_set_up_interface('fruits');
 	});
