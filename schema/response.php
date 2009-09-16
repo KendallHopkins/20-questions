@@ -10,14 +10,14 @@ $table->column = array(
 	)
 );
 $table->parent = array(
-    "game" => array(
+    "game_id" => array(
 		Sqloo::PARENT_TABLE_NAME => "game", 
 		Sqloo::PARENT_ALLOW_NULL => FALSE,
 		Sqloo::PARENT_DEFAULT_VALUE => NULL,
 		Sqloo::PARENT_ON_DELETE => Sqloo::ACTION_CASCADE, 
 		Sqloo::PARENT_ON_UPDATE => Sqloo::ACTION_CASCADE
 	),
-	"question" => array(
+	"question_id" => array(
 		Sqloo::PARENT_TABLE_NAME => "question", 
 		Sqloo::PARENT_ALLOW_NULL => FALSE,
 		Sqloo::PARENT_DEFAULT_VALUE => NULL,
@@ -30,7 +30,7 @@ $table->index = array(
 		Sqloo::INDEX_COLUMN_ARRAY => array( "response" ),
 	),
 	array(
-		Sqloo::INDEX_COLUMN_ARRAY => array( "game", "question" ),
+		Sqloo::INDEX_COLUMN_ARRAY => array( "game_id", "question_id" ),
 		Sqloo::INDEX_UNIQUE => TRUE
 	),
 	array(

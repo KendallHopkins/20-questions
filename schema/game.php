@@ -10,9 +10,16 @@ $table->column = array(
 	)
 );
 $table->parent = array(
-	"item" => array(
+	"item_id" => array(
 		Sqloo::PARENT_TABLE_NAME => "item", 
 		Sqloo::PARENT_ALLOW_NULL => TRUE,
+		Sqloo::PARENT_DEFAULT_VALUE => NULL,
+		Sqloo::PARENT_ON_DELETE => Sqloo::ACTION_CASCADE, 
+		Sqloo::PARENT_ON_UPDATE => Sqloo::ACTION_CASCADE
+	),
+	"group_id" => array(
+		Sqloo::PARENT_TABLE_NAME => "group", 
+		Sqloo::PARENT_ALLOW_NULL => FALSE,
 		Sqloo::PARENT_DEFAULT_VALUE => NULL,
 		Sqloo::PARENT_ON_DELETE => Sqloo::ACTION_CASCADE, 
 		Sqloo::PARENT_ON_UPDATE => Sqloo::ACTION_CASCADE

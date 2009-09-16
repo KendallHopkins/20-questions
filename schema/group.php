@@ -1,9 +1,9 @@
 <?php
 
-$table = $sqloo->newTable( "question" );
+$table = $sqloo->newTable( "group" );
 $table->column = array(
-	"question" => array(
-		Sqloo::COLUMN_DATA_TYPE => array( "type" => Sqloo::DATATYPE_STRING, "size" => 1024 )
+	"name" => array(
+		Sqloo::COLUMN_DATA_TYPE => array( "type" => Sqloo::DATATYPE_STRING, "size" => 128 )
 	),
 	"added" => array(
 		Sqloo::COLUMN_DATA_TYPE => array( "type" => Sqloo::DATATYPE_TIME )
@@ -13,15 +13,12 @@ $table->column = array(
 	)
 );
 $table->parent = array(
-	"group_id" => array(
-		Sqloo::PARENT_TABLE_NAME => "group", 
-		Sqloo::PARENT_ALLOW_NULL => FALSE,
-		Sqloo::PARENT_DEFAULT_VALUE => NULL,
-		Sqloo::PARENT_ON_DELETE => Sqloo::ACTION_CASCADE, 
-		Sqloo::PARENT_ON_UPDATE => Sqloo::ACTION_CASCADE
-	)
 );
 $table->index = array(
+	array(
+		Sqloo::INDEX_COLUMN_ARRAY => array( "name" ),
+		Sqloo::INDEX_UNIQUE => TRUE
+	),
 	array(
 		Sqloo::INDEX_COLUMN_ARRAY => array( "added" )
 	),
