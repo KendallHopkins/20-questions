@@ -156,6 +156,9 @@ class AI
 			"id" => $item_ref->id,
 			"name" => $item_ref->name
 		);
+		$query->limit = 1;
+		$query->run();
+		$row = $query->fetchRow();
 		return array( "id" => (int)$row["id"], "name" => $row["name"] );
 	}
 	
