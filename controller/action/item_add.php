@@ -12,15 +12,14 @@ $attribute_array = array(
 try {
 	$sqloo = Common::getSqloo();
 	$row_id = $sqloo->insert( "item", $attribute_array );
+	Common::sendJSON(
+		array(
+			"success" => TRUE,
+			"item_id" => $row_id
+		)
+	);
 } catch( Exception $e ) {
 	Common::sendJSON( array( "success" => FALSE, "error" => "Database error while inserting item: ".$e->getMessage() ) );
 }
-
-Common::sendJSON(
-	array(
-		"success" => TRUE,
-		"item_id" => $row_id
-	)
-);
 
 ?>

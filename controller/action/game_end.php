@@ -29,14 +29,13 @@ $attribute_array = array(
 try {
 	$sqloo = Common::getSqloo();
 	$row_id = $sqloo->update( "game", $attribute_array, "id = ".$_REQUEST["game_id"] );
+	Common::sendJSON(
+		array(
+			"success" => TRUE
+		)
+	);
 } catch( Exception $e ) {
 	Common::sendJSON( array( "success" => FALSE, "error" => "Database error: ".$e->getMessage() ) );
 }
-
-Common::sendJSON(
-	array(
-		"success" => TRUE
-	)
-);
 
 ?>
