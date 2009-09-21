@@ -183,7 +183,7 @@ class AI
 		$query->run();
 		$best_question_array = array();
 		foreach( $query as $row ) {
-			$best_question_array[] = array( "id" => (int)$row["id"], "name" => $row["name"] )
+			$best_question_array[] = array( "id" => (int)$row["id"], "name" => $row["name"] );
 		}
 		return $best_question_array;
 	}
