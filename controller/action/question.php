@@ -27,14 +27,20 @@ $done_count = AI::getDoneResponseCount( $responce_single_table_ref );
 $item_probability_table_ref = AI::getItemProbabilityTable( $responce_average_table_ref, $responce_single_table_ref );
 if( $done_count < 20 ) {
 	$question_array = AI::getBestQuestionArray( $responce_single_table_ref, $responce_average_table_ref, $item_probability_table_ref, 1 );
-	Common::sendJSON(
-		array(
-			"success" => TRUE,
-			"type" => "normal",
-			"question" => Common::safeArrayAccess( 0, $question_array ),
-			"count" => $done_count
-		)
-	);
+	$next_question = Common::safeArrayAccess( 0, $question_array );
+	if( ! is_null( $next_question ) ) {
+		Common::sendJSON(
+			array(
+				"success" => TRUE,
+				"type" => "normal",
+				"question" => $next_question,
+				"count" => $done_count
+			)
+		);
+	} else {
+		Common::sendJSON( array( "success" => FALSE, "error" => "We don't have any more questions." ) );
+	}
+	
 } else {
 	$answer_info = AI::getBestAnswerItem( $item_probability_table_ref );
 	Common::sendJSON(
