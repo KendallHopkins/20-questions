@@ -10,8 +10,8 @@ $done_count = AI::getDoneResponseCount( $responce_single_table_ref );
 $item_probability_table_ref = AI::getItemProbabilityTable( $responce_average_table_ref, $responce_single_table_ref );
 
 $limit = array_key_exists( "limit", $_REQUEST ) ? $_REQUEST["limit"] : 10;
-$question_array = AI::getBestQuestionArray( $responce_single_table_ref, $responce_average_table_ref, $item_probability_table_ref, $limit );
+$answer_array = AI::getBestAnswerItem( $item_probability_table_ref, $limit );
 
-Common::sendJSON( array( "success" => FALSE, "question_array" => $question_array ) );
+Common::sendJSON( array( "success" => TRUE, "answer_array" => $answer_array ) );
 
 ?>

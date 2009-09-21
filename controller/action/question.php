@@ -42,15 +42,21 @@ if( $done_count < 20 ) {
 	}
 	
 } else {
-	$answer_info = AI::getBestAnswerItem( $item_probability_table_ref );
-	Common::sendJSON(
-		array(
-			"success" => TRUE,
-			"type" => "final",
-			"answer" => $answer_info,
-			"count" => $done_count
-		)
-	);
+	$answer_info = AI::getBestAnswerItem( $item_probability_table_ref, 1 );
+	$best_answer = Common::safeArrayAccess( 0, $answer_info );
+
+	if( ! is_null( $best_answer ) ) {
+		Common::sendJSON(
+			array(
+				"success" => TRUE,
+				"type" => "final",
+				"answer" => $best_answer,
+				"count" => $done_count
+			)
+		);
+	} else {
+		Common::sendJSON( array( "success" => FALSE, "error" => "We don't have any items." ) );
+	}
 }
 
 

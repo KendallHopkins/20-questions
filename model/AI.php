@@ -145,7 +145,7 @@ class AI
 		return $item_probability_table_ref;
 	}
 	
-	static function getBestAnswerItem( $item_probability_table_ref )
+	static function getBestAnswerItem( $item_probability_table_ref, $count = 1 )
 	{
 		$sqloo = Common::getSqloo();
 		$query = $sqloo->newQuery();
@@ -156,10 +156,14 @@ class AI
 			"id" => $item_ref->id,
 			"name" => $item_ref->name
 		);
-		$query->limit = 1;
+		$query->limit = $count;
 		$query->run();
-		$row = $query->fetchRow();
-		return array( "id" => (int)$row["id"], "name" => $row["name"] );
+		$answer_array = array();
+		foreach( $query as $row ) {
+			$answer_array[] = array( "id" => (int)$row["id"], "name" => $row["name"] );
+		}
+		
+		return $answer_array;
 	}
 	
 	static function getBestQuestionArray( $responce_single_table_ref, $responce_average_table_ref, $item_probability_table_ref, $count )
