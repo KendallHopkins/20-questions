@@ -7,7 +7,7 @@ body {
 #container {
 	margin: 5% auto;
 	border: 5px solid white;
-	width: 500px;
+	width: 600px;
 	background-color: #8399AF;
 	padding: 10px;
 }
@@ -26,23 +26,30 @@ body {
 .clear { clear: both; }
 
 /* CATEGORY/YESNO BUTTON STYLES */
-.category { padding: 30px; width: 150px; cursor: pointer; color: #ffffff; border: 2px solid #d5dee7; font-size: 2em; text-align: center;}
-div.category:hover { background-color: #d5dee7; border: 2px solid white; color: #8e99af; }
+#categories { list-style: none; text-align: center;}
+#categories li { float: left; }
+#categories li.category { margin-left: 20px; padding: 30px; margin-top: 10px; width: 150px; cursor: pointer; color: #ffffff; border: 2px solid #d5dee7; font-size: 2em; text-align: center;}
+#categories li.category:hover { background-color: #d5dee7; border: 2px solid white; color: #8e99af; }
 
+
+.response { display: none; margin-left: 20px; padding: 30px; margin-top: 10px; width: 150px; cursor: pointer; color: #ffffff; border: 2px solid #d5dee7; font-size: 2em; text-align: center;}
+.response:hover { background-color: #d5dee7; border: 2px solid white; color: #8e99af; }
 .green { background-color: #6bb350; color: #fff; }
 div.green:hover { background-color: #abea71; color: #6bb350; border-color:#6bb350; }
 
 .red { background-color: #d6313e; color: #fff;}
 div.red:hover { background-color: #ff6168; color: #d6313e; border-color: #d6313e; }
 
-.chosencat { font-size: 3em; text-align: center; color: #fff; }
+.chosencat { font-size: 2em; text-align: center; color: #fff; }
 .chosencat strong { color: #d5dee7; }
 
 /* QUESTIONS STYLES */
-#questions { width: 100%; }
+.question_div { margin-top: 20px; font-size: 3em; text-align: center; color: #fff;  }
+.question_div strong { color: #d5dee7; }
+#questions { width: 100%; overflow:auto; max-height: 250px; margin-top: 10px; }
 #questions ul { list-style:none;  }
 #questions ul li { margin-left: -40px; padding: 5px; border-bottom: 1px dotted white;}
-#questions li.odd { background-color: #d5dee7; color: white;}
+#questions li.odd { background-color: #d5dee7; color: #91a2c7;}
 #questions li.even { color: white;}
 
 .question .q_index,
@@ -57,3 +64,29 @@ div.red:hover { background-color: #ff6168; color: #d6313e; border-color: #d6313e
 .question .q_text { width: 76%; }
 
 .question .q_usr_resp { }
+
+.g { background-color: #6bb350; color: #fff; padding: 2px; }
+.r	{ color: #d6313e; }
+
+/* ANSWER STYLES/ADD TO DB/SUGGESTIONS/WHATEVER */
+#answer {
+	width: 90%;
+	padding: 15px;
+	font-size: 3em; text-align: center; color: #fff;
+	border: 4px solid orange;
+	display: none;
+}
+
+#answer strong {
+	color: #d5dee7;
+}
+
+#answer_submission {
+	display: none;
+	background-color: #d5dee7;
+	border: 3px solid white;
+	color: #8e99af;
+}
+
+/* ERROR STYLE */
+#error { display: none; background-color: #d6313e; color: #fff; border: 2px solid #fff; font-size: 1em;  text-align: center;}
