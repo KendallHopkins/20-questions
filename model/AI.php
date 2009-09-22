@@ -29,6 +29,8 @@ class Temp_Table
 class AI
 {
 	
+	const LIMIT = 0.05;
+	
 	static function getResponceAverageTable()
 	{
 		$sqloo = Common::getSqloo();
@@ -62,7 +64,8 @@ class AI
 		$query_array[] = $query;
 			
 		$union_query = $sqloo->union( $query_array );
-		$union_query->column["average"] = "IF( ISNULL( MAX( ".$union_query->column["average"]." ) ), 0.5, MAX( ".$union_query->column["average"]." ) )";
+		$average = "IF( ISNULL( MAX( ".$union_query->column["average"]." ) ), 0.5, MAX( ".$union_query->column["average"]." ) )";
+		$union_query->column["average"] = "LEAST( ".(1-self::LIMIT).", GREATEST( ".self::LIMIT.", $average ) )";
 		$union_query->group = array( "item_id","question_id" );
 		
 		$responce_average_table_ref = new Temp_Table( 'item_id int, question_id int, average float' );

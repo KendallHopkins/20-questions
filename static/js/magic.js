@@ -14,7 +14,7 @@ function _get_question( question_id, response ) {
 	//question_id and response are input of this function, that should be overloaded to allow null
 	if( ( question_id !== null ) && ( response !== null ) ) {
 		post_data.question_id = question_id;
-		post_data.response = response;
+		post_data.response = Number( response );
 	}
 	
 	$.ajax({
