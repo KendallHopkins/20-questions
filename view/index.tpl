@@ -22,7 +22,7 @@
 				{/foreach}
 			</ul>
 			
-			<div id="error">Hi there is a hugeeee mistake here</div>
+			<div id="error"></div>
 			
 			<div id="left_box" class="response green">Yes</div>
 			<div id="right_box" class="response red">No</div>
@@ -45,6 +45,8 @@
 					Or...add a word:
 					<input type="text" id="add_answer" /> <input id="add_answer_button" type="button" value="Add" />
 				</div>
+				
+				<p>To start all over again...<a href="/index">click here</a></p>
 			</div>
 			
 			<div class="clear"></div>

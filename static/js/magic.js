@@ -1,5 +1,13 @@
 function _set_up_interface( cat ) {
 	$('#categories').hide();
+	$('.category').unbind();
+	$('.green').click(function() {
+		__handle_response( true );
+	});
+	
+	$('.red').click(function() {
+		__handle_response( false );
+	});
 	$('.subheader').removeClass().html('').addClass('chosencat').html('<strong>Category:</strong> ' + cat);
 	$('.response').show();
 
@@ -15,15 +23,15 @@ function _get_question( question_id, response ) {
 	if( ( question_id !== null ) && ( response !== null ) ) {
 		post_data.question_id = question_id;
 		post_data.response = Number( response );
-	}
-	
+	} 
 	$.ajax({
 		type:	"POST",
 		url:	"/action/question",
 		data:	post_data,
 		dataType: "json",
 		success: function(json) {
-			__handle_question(json);
+		
+			__handle_question(json, response);
 		}
 	});
 }
@@ -36,7 +44,10 @@ function __submit_answer_confirmation( answer_item_id, alternate ) {
 		data:	post_data,
 		dataType: "json",
 		success: function(json) {
-			alternate ? __handle_game_end({success:false}):__handle_game_end(json);
+			if(json.success)
+				alternate ? __handle_game_end({success:false}):__handle_game_end(json);
+			else 
+				__throw_error(json.error);
 		}
 	});
 }
@@ -134,6 +145,7 @@ function __handle_question( json ) {
 	console.log( json );
 	if( json.success ) {
 		$.fn.twentyquestions.question_count = json.count;
+		$.fn.twentyquestions.question_type = json.type;
 		if( json.type != 'final' ) {
 			$.fn.twentyquestions.current_question_id = json.question.id;
 			$.fn.twentyquestions.current_question_name = json.question.name;
@@ -159,6 +171,9 @@ function __handle_question( json ) {
 				$('#search_answer').keyup(function() {
 					if($.trim($(this).val()) != 0)
 						__get_answer_search_results( $(this).val() );
+					else 
+						$('.possible_word_list').html('');
+						
 				});
 				
 				$('#add_answer_button').click(function() {
@@ -169,7 +184,7 @@ function __handle_question( json ) {
 				});
 			});
 
-			$('#questions ul').prepend('<li class="'+ ( ($.fn.twentyquestions.question_count % 2) == 0 ? 'even':'odd')+ '"><div class="question"><div class="q_index">'+ ($.fn.twentyquestions.question_count + 1) +'</div><div class="q_text">' + $.fn.twentyquestions.current_question_name + '</div><div class="q_usr_resp">You said <strong class="'+ (response ? 'g':'r') + '">' + (response ? 'Yes':'No') + '</strong></div><div class="clear"></div></div></li>');
+			
 		}
 	} else {
 		__throw_error(json);
@@ -190,12 +205,15 @@ function __choose_group( group_id ) {
 }
 
 function __handle_response( response ) {
+	if( $.fn.twentyquestions.question_type !== 'final' )
+		$('#questions ul').prepend('<li class="'+ ( ($.fn.twentyquestions.question_count % 2) == 0 ? 'even':'odd')+ '"><div class="question"><div class="q_index">'+ ($.fn.twentyquestions.question_count + 1) +'</div><div class="q_text">' + $.fn.twentyquestions.current_question_name + '</div><div class="q_usr_resp">You said <strong class="'+ (response ? 'g':'r') + '">' + (response ? 'Yes':'No') + '</strong></div><div class="clear"></div></div></li>');
 	_get_question( $.fn.twentyquestions.current_question_id, response );
 }
 
 function __throw_error(json) {
 	// FOR NOW REDIRECT TO HOMEPAGE
-	alert('YOU ARE SERIOUSLY MADE OF FAIL! AND IT\'S PROBABLY KENDALL\'S FAULT<br/>Here is the error: ' + json.error);
+	$('.response, #questions, .question_div, .subheader, .chosencat').hide();
+	$('#error').html('There has been a grevious error. You life was destroyed in the process. Or you tried to speed through this game like [insert cool sarcastic comment here]. <br /><br /> Okay now to the real error, <br />' + json.error + '<br /> <a href="/index">Click here to start the game again</a>.').show();
 	//window.location = '/index';
 }
 
@@ -203,10 +221,11 @@ $(document).ready(function() {
 	
 	$.fn.twentyquestions = {
 		game_id: 0,
-		question_count: 0,
+		question_count: null,
 		current_question_id: null,
 		current_question_name: null,
-		max_questions: null
+		max_questions: null,
+		question_type: null
 	};
 	
 	$('.category').click(function() {
@@ -214,11 +233,4 @@ $(document).ready(function() {
 		_set_up_interface( $(this).html() );
 	});
 	
-	$('.green').click(function() {
-		__handle_response( true );
-	});
-	
-	$('.red').click(function() {
-		__handle_response( false );
-	});
 });
