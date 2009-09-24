@@ -60,7 +60,7 @@ function __handle_game_end(json) {
 	} else { // game ended with a submission of a word to the game...clean up, say thanks and redirect in 5 seconds
 		$('#answer_submission').hide().html('<h3>Thanks for playing, we got your submission</h3><br /><h6>I\'m still better than you haha scrubber</h6><br /><h3>You will be directed home in 5 seconds</h3>').show();
 		
-		//setTimeout("location.href='/index';", 5000);
+		setTimeout("location.href='/index';", 5000);
 	}
 }
 
@@ -138,7 +138,6 @@ function __handle_question( json ) {
 			$.fn.twentyquestions.current_question_id = json.question.id;
 			$.fn.twentyquestions.current_question_name = json.question.name;
 			$('.question_div').html('<strong>' + (json.count + 1) + '.</strong> ' + json.question.name);
-			$('#questions ul').prepend('<li class="'+ ( ($.fn.twentyquestions.question_count % 2) == 0 ? 'even':'odd')+ '"><div class="question"><div class="q_index">'+ ($.fn.twentyquestions.question_count + 1) +'</div><div class="q_text">' + $.fn.twentyquestions.current_question_name + '</div><div class="q_usr_resp">You said <strong class="'+ (response ? 'g':'r') + '">' + (response ? 'Yes':'No') + '</strong></div><div class="clear"></div></div></li>');
 		} else {
 			$.fn.twentyquestions.answer_id = json.answer.id;
 			$.fn.twentyquestions.answer_name = json.answer.name;
@@ -170,6 +169,7 @@ function __handle_question( json ) {
 				});
 			});
 
+			$('#questions ul').prepend('<li class="'+ ( ($.fn.twentyquestions.question_count % 2) == 0 ? 'even':'odd')+ '"><div class="question"><div class="q_index">'+ ($.fn.twentyquestions.question_count + 1) +'</div><div class="q_text">' + $.fn.twentyquestions.current_question_name + '</div><div class="q_usr_resp">You said <strong class="'+ (response ? 'g':'r') + '">' + (response ? 'Yes':'No') + '</strong></div><div class="clear"></div></div></li>');
 		}
 	} else {
 		__throw_error(json);

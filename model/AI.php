@@ -172,6 +172,8 @@ class AI
 	static function getBestQuestionArray( $responce_single_table_ref, $responce_average_table_ref, $item_probability_table_ref, $count )
 	{
 		$sqloo = Common::getSqloo();
+
+		/* precalculate the center point */
 		$query = $sqloo->newQuery();
 		$question_ref = $query->table( "question" );
 		$item_user_responce = $question_ref->joinChild( $responce_single_table_ref, "question_id" );
@@ -181,8 +183,27 @@ class AI
 		$item_probability_ref = $item_ref->joinChild( $item_probability_table_ref, "item_id" );
 		
 		$query->group = array( $question_ref->id );
+		
+		$query->column = array(
+			"question_id" => $question_ref->id,
+			"average" => "AVG( $question_responce_average_ref->average * $item_probability_ref->probability )",
+		);
 	
-		$sort_by_string = "STD( $item_probability_ref->probability * ( $question_responce_average_ref->average - 0.5 ) )";
+		$weighted_center_ref = new Temp_Table( 'question_id int, average float' );
+		$sqloo->insertQuery( $weighted_center_ref, $query );
+		
+		/* calculate the best question */
+		$query = $sqloo->newQuery();
+		$question_ref = $query->table( "question" );
+		$item_user_responce = $question_ref->joinChild( $responce_single_table_ref, "question_id" );
+		$query->where[] = "$item_user_responce->done = 0";
+		$question_weighted_center_ref = $question_ref->joinChild( $weighted_center_ref, "question_id" );
+		$question_responce_average_ref = $question_ref->joinChild( $responce_average_table_ref, "question_id" );
+		$item_ref = $question_responce_average_ref->joinParent( "item", "item_id" );
+		$item_probability_ref = $item_ref->joinChild( $item_probability_table_ref, "item_id" );
+
+		$query->group = array( $question_ref->id );
+		$sort_by_string = "STD( $item_probability_ref->probability * ( $question_responce_average_ref->average - $question_weighted_center_ref->average ) )";
 	
 		$query->column = array(
 			"id" => $question_ref->id,
