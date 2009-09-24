@@ -125,7 +125,7 @@ function __add_answer( answer ) {
 		data:	post_data,
 		dataType: "json",
 		success: function(json) {
-			__handle_game_end({success:false});
+			__submit_answer_confirmation( json.id, true );
 		}
 	});
 }
