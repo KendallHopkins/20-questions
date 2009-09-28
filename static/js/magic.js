@@ -53,7 +53,7 @@ function __submit_answer_confirmation( answer_item_id, alternate ) {
 }
 
 function __handle_new_game(json) {
-	console.log(json);
+	//console.log(json);
 	if(json.success) {
 		$.fn.twentyquestions.game_id = json.game_id;
 		_get_question( null, null );
@@ -142,7 +142,7 @@ function __add_answer( answer ) {
 }
 
 function __handle_question( json ) {
-	console.log( json );
+	//console.log( json );
 	if( json.success ) {
 		$.fn.twentyquestions.question_count = json.count;
 		$.fn.twentyquestions.question_type = json.type;
