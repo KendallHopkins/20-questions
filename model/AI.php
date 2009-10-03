@@ -186,7 +186,7 @@ class AI
 		
 		$query->column = array(
 			"question_id" => $question_ref->id,
-			"average" => "SUM( $question_responce_average_ref->average * $item_probability_ref->probability ) / SUM( $item_probability_ref->probability )",
+			"average" => "SUM( $question_responce_average_ref->average * $item_probability_ref->probability ) / SUM( $question_responce_average_ref->average )",
 		);
 	
 		$weighted_center_ref = new Temp_Table( 'question_id int, average float' );

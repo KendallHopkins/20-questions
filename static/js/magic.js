@@ -66,12 +66,12 @@ function __handle_game_end(json) {
 	if(json.success) {
 		$('.response').unbind().hide();
 		$('.question_div, #questions, #answer_submission').hide();
-		$('#answer').show().html('Haha, so I\'m right again scrub!! You can\'t handle my skillz, can you has skills like me? no you can\'t has skills like me. You are FAIL!! <br /> <h3><a href="/index">Back Home</a></h3>');
+		$('#answer').show().html('Haha, so I\'m right again scrub!! You can\'t handle my skillz, can you has skills like me? no you can\'t has skills like me. You are FAIL!! <br /> <h3><a href="index">Back Home</a></h3>');
 		
 	} else { // game ended with a submission of a word to the game...clean up, say thanks and redirect in 5 seconds
 		$('#answer_submission').hide().html('<h3>Thanks for playing, we got your submission</h3><br /><h6>I\'m still better than you haha scrubber</h6><br /><h3>You will be directed home in 5 seconds</h3>').show();
 		
-		setTimeout("location.href='/index';", 5000);
+		setTimeout("location.href='index';", 5000);
 	}
 }
 
