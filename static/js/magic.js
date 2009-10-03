@@ -26,7 +26,7 @@ function _get_question( question_id, response ) {
 	} 
 	$.ajax({
 		type:	"POST",
-		url:	"/action/question",
+		url:	"action/question",
 		data:	post_data,
 		dataType: "json",
 		success: function(json) {
@@ -40,7 +40,7 @@ function __submit_answer_confirmation( answer_item_id, alternate ) {
 	var post_data = { game_id: $.fn.twentyquestions.game_id, item_id: answer_item_id };
 	$.ajax({
 		type:	"POST",
-		url:	"/action/game_end",
+		url:	"action/game_end",
 		data:	post_data,
 		dataType: "json",
 		success: function(json) {
@@ -79,7 +79,7 @@ function __get_top_10() {
 	var post_data = { game_id: $.fn.twentyquestions.game_id };
 	$.ajax({
 		type:	"POST",
-		url:	"/action/item_list",
+		url:	"action/item_list",
 		data:	post_data,
 		dataType: "json",
 		success: function(json) {
@@ -103,7 +103,7 @@ function __get_answer_search_results( key ) {
 	var post_data = { game_id: $.fn.twentyquestions.game_id, search: key };
 	$.ajax({
 		type:	"POST",
-		url:	"/action/item_search",
+		url:	"action/item_search",
 		data:	post_data,
 		dataType: "json",
 		success: function(json) {
@@ -132,7 +132,7 @@ function __add_answer( answer ) {
 	var post_data = { group_id: $.fn.twentyquestions.group_id, name: answer };
 	$.ajax({
 		type:	"POST",
-		url:	"/action/item_add",
+		url:	"action/item_add",
 		data:	post_data,
 		dataType: "json",
 		success: function(json) {
@@ -195,7 +195,7 @@ function __choose_group( group_id ) {
 	$.fn.twentyquestions.group_id = group_id;
 	$.ajax({
 		type:	"POST",
-		url:	"/action/game_new",
+		url:	"action/game_new",
 		data:	"group_id=" + group_id,
 		dataType: "json",
 		success: function(json) {

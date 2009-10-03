@@ -2,7 +2,7 @@
 
 class Common
 {
-
+	
 	static public function getUrlArray()
     {
     	//simple function to return array of url items (ie /home/item ~> array( "home", "item" )
@@ -35,15 +35,16 @@ class Common
 
 	static public function master_pool()
 	{
-		require( $_SERVER['DOCUMENT_ROOT']."/configure/db.php" );
+		require( LOCAL_DOCUMENT_ROOT."/configure/db.php" );
 		return $master_pool[ array_rand( $master_pool ) ];
 	}
 
 	//simple load table function
 	static public function load_table( $table_name, $sqloo )
 	{
-		if( ! file_exists( $_SERVER['DOCUMENT_ROOT']."/schema/".$table_name.".php" ) ) throw new Exception( "failed to loaded" );
-		require( $_SERVER['DOCUMENT_ROOT']."/schema/".$table_name.".php" );
+		$table_file = LOCAL_DOCUMENT_ROOT."/schema/".$table_name.".php";
+		if( ! file_exists( $table_file ) ) throw new Exception( "failed to loaded" );
+		require( $table_file );
 	}
 
 	static public function filter_table_folder( $table_name )
@@ -54,7 +55,7 @@ class Common
 	//simple list table function
 	static public function list_all_tables()
 	{
-		$file_array = array_filter( scandir( $_SERVER['DOCUMENT_ROOT']."/schema/" ), "Common::filter_table_folder" );
+		$file_array = array_filter( scandir( LOCAL_DOCUMENT_ROOT."/schema/" ), "Common::filter_table_folder" );
 		$table_array = array();
 		foreach( $file_array as $file_name ) {
 			$table_array[] = substr( $file_name, 0, -4 ); //remove .php
@@ -77,8 +78,8 @@ class Common
 	{
 		$smarty = new Smarty();
 
-		$smarty->template_dir = $_SERVER['DOCUMENT_ROOT']."/view/";
-		$smarty->compile_dir  = $_SERVER['DOCUMENT_ROOT']."/view_c/";
+		$smarty->template_dir = LOCAL_DOCUMENT_ROOT."/view/";
+		$smarty->compile_dir  = LOCAL_DOCUMENT_ROOT."/view_c/";
 		//$smarty->config_dir   = '/web/www.example.com/guestbook/configs/';
 		return $smarty;
 	}

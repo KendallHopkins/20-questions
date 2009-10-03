@@ -1,12 +1,12 @@
 <html>
 <head>
 	<title> 20 Questions </title>
-	<script src="/static/js/jquery-1.2.6.min.js" type="text/javascript"></script>
-	<script src="/static/js/jquery.scrollTo-min.js" type="text/javascript"></script>
-	<script src="/static/js/magic.js" type="text/javascript"></script>
-	<link rel="icon" href="/static/favicon.ico" type="image/x-icon"> 
-	<link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" href="/static/css/theme.css" />
+	<script src="static/js/jquery-1.2.6.min.js" type="text/javascript"></script>
+	<script src="static/js/jquery.scrollTo-min.js" type="text/javascript"></script>
+	<script src="static/js/magic.js" type="text/javascript"></script>
+	<link rel="icon" href="static/favicon.ico" type="image/x-icon"> 
+	<link rel="shortcut icon" href="static/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="static/css/theme.css" />
 </head>
 
 <body>

@@ -51,7 +51,7 @@ class Error
 				$strack_trace_string_array[] = sprintf( 
 					"%s( %s line %s )",
 					Common::safeArrayAccess( "function", $stack_trace, "" ),
-					str_replace( $_SERVER['DOCUMENT_ROOT'], "", $stack_trace["file"] ),
+					str_replace( LOCAL_DOCUMENT_ROOT, "", $stack_trace["file"] ),
 					(string)$stack_trace["line"]
 				);
 			} else {

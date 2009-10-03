@@ -1,12 +1,15 @@
 # Setup server environment
 php_value magic_quotes_gpc 0
 php_value magic_quotes_runtime 0
+php_value display_errors 1
+
 
 #Rewrite Rules
 RewriteEngine On
-
 RewriteBase /
-
-#rewrite exceptions, be careful with these.
 RewriteCond %{REQUEST_URI} !^/static/ [NC]
+
+#RewriteBase /subfolder/
+#RewriteCond %{REQUEST_URI} !^/subfolder/static/ [NC]
+
 RewriteRule ^(.*)$ router.php [L,QSA]
